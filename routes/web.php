@@ -11,8 +11,16 @@
 |
 */
 
+use App\Http\Controllers\BotController;
+
 Route::get('/', function () {
     $text = (new CodeBot\Message\Text(1))->message('hello');
     dd($text);
     return view('welcome');
 });
+
+Route::prefix('bot')
+    ->group(function () {
+        Route::get('/webhook', 'BotController@subscribe');
+        Route::post('/webhook', 'BotController@receiveMessage');
+    });
