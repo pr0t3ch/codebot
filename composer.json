@@ -1,12 +1,15 @@
 {
     "name": "laravel/laravel",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
-        "danieldauber/facebook-bot-sdk": "dev-master",
+        "php": ">=7.1",
+        "danieldauber/facebook-bot-sdk": "1.*",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
     },

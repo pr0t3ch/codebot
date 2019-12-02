@@ -6,6 +6,8 @@ use CodeBot\CallSendApi;
 use CodeBot\WebHook;
 use CodeBot\SenderRequest;
 use CodeBot\Message\Text;
+use CodeBot\Element\Button;
+use CodeBot\TemplatesMessage\ButtonsTemplate;
 use Illuminate\Http\Request;
 
 class BotController extends Controller
@@ -30,8 +32,13 @@ class BotController extends Controller
         $text = new Text($senderId);
         $callSendApi = new CallSendApi(config('botfb.pageAcessToken'));
 
-        $callSendApi->make($text->message('Quer dar um rolezinho hoje?', $message));
+        $callSendApi->make($text->message('Olá, voce digitou' . $message));
         // $callSendApi->make($text->message('Você digitou', $message));
+
+        $message = new ButtonsTemplate($senderId);
+        $message->add(new Button('web_url', 'Google', 'https://www.google.com'));
+        $callSendApi->make($message->message('Texto do botão'));
+
 
         return '';
     }
