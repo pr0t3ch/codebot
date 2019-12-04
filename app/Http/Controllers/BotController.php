@@ -42,38 +42,30 @@ class BotController extends Controller
         $message->add(new Button('web_url', 'Google', 'https://www.google.com'));
         $callSendApi->make($message->message('Texto do botão'));
 
-        // $product = new Product(
-        //     'Produto',
-        //     'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
-        //     'Subtitulo do Produto',
-        //     new Button('web_url', null, 'http://www.google.com')
-        // );
-        // $product2 = new Product(
-        //     'Produto',
-        //     'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
-        //     'Subtitulo do Produto',
-        //     new Button('web_url', null, 'http://www.google.com')
-        // );
+        $product = new Product(
+            'Produto',
+            'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
+            'Subtitulo do Produto',
+            new Button('web_url', null, 'http://www.google.com')
+        );
+        $product2 = new Product(
+            'Produto',
+            'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
+            'Subtitulo do Produto',
+            new Button('web_url', null, 'http://www.google.com')
+        );
 
+        $template = new ListTemplate(1234);
+        $template->add($product);
+        $template->add($product2);
 
-        // $template = new ListTemplate(1234);
-        // $template->add($product);
-        // $template->add($product2);
+        $callSendApi->make($template->message('message'));
 
-        // $callSendApi->make($template->message('message'));
+        $template = new GenericTemplate(1234);
+        $template->add($product);
+        $template->add($product2);
 
-        // $product = new Product(
-        //     'Produto',
-        //     'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
-        //     'Subtitulo do Produto',
-        //     new Button('web_url', null, 'http://www.google.com')
-        // );
-
-        // $template = new GenericTemplate(1234);
-        // $template->add($product);
-        // $template->add($product);
-
-        // $callSendApi->make($template->message('message'));
+        $callSendApi->make($template->message('message'));
 
 
         return '';
