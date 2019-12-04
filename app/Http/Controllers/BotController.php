@@ -38,9 +38,9 @@ class BotController extends Controller
         $callSendApi->make($text->message('Olá, voce digitou' . $message));
         // $callSendApi->make($text->message('Você digitou', $message));
 
-        // $message = new ButtonsTemplate((int) $senderId);
-        // $message->add(new Button('web_url', 'Google', 'https://www.google.com'));
-        // $callSendApi->make($message->message('Texto do botão'));
+        $message = new ButtonsTemplate((int) $senderId);
+        $message->add(new Button('web_url', 'Google', 'https://www.google.com'));
+        $callSendApi->make($message->message('Texto do botão'));
 
         $product = new Product(
             'Produto',
