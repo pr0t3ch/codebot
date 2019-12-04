@@ -55,13 +55,13 @@ class BotController extends Controller
             new Button('web_url', null, 'http://www.google.com')
         );
 
-        $template = new ListTemplate(1234);
+        $template = new ListTemplate($senderId);
         $template->add($product);
         $template->add($product2);
 
         $callSendApi->make($template->message('message'));
 
-        $template = new GenericTemplate(1234);
+        $template = new GenericTemplate($senderId);
         $template->add($product);
         $template->add($product2);
 
