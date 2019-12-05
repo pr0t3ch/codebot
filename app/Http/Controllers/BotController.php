@@ -75,7 +75,7 @@ class BotController extends Controller
         ];
 
         $bot->template('generic', '', $products);
-        $bot->template('list', '', $products);
+        // $bot->template('list', '', $products);
 
         return '';
     }
