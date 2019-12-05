@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "danieldauber/facebook-bot-sdk",
-            "version": "v1.3.2",
+            "version": "v1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danieldauber/facebook-bot-sdk.git",
-                "reference": "41e8b9a80b9192766e0d7a1dc1d0186e4bee7b6a"
+                "reference": "91fe9c2376b6157294b22bcc16a5ea730a57a81c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danieldauber/facebook-bot-sdk/zipball/41e8b9a80b9192766e0d7a1dc1d0186e4bee7b6a",
-                "reference": "41e8b9a80b9192766e0d7a1dc1d0186e4bee7b6a",
+                "url": "https://api.github.com/repos/danieldauber/facebook-bot-sdk/zipball/91fe9c2376b6157294b22bcc16a5ea730a57a81c",
+                "reference": "91fe9c2376b6157294b22bcc16a5ea730a57a81c",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,7 @@
                     "email": "web@dauber.com.br"
                 }
             ],
-            "time": "2019-12-05T16:51:40+00:00"
+            "time": "2019-12-05T18:39:13+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
