@@ -52,7 +52,7 @@ class BotController extends Controller
         $buttons = [
             new Button('web_url', 'Google', 'https://www.google.com')
         ];
-        $bot->template('buttons', 'Abrir o link', $buttons, []);
+        $bot->template('buttons', 'Abrir o link', $buttons);
 
         $products = [
             new Product(
