@@ -12,6 +12,7 @@ use CodeBot\TemplatesMessage\ButtonsTemplate;
 use CodeBot\TemplatesMessage\GenericTemplate;
 use CodeBot\TemplatesMessage\ListTemplate;
 use Illuminate\Http\Request;
+use CodeBot\Build\Solid;
 
 class BotController extends Controller
 {
@@ -31,42 +32,35 @@ class BotController extends Controller
         $sender = new SenderRequest;
         $senderId = $sender->getSenderId();
         $message = $sender->getMessage();
+        $postback = $sender->getPostBack();
 
-        $text = new Text($senderId);
-        $callSendApi = new CallSendApi(config('botfb.pageAcessToken'));
+        $bot = Solid::factory();
+        Solid::pageAccessToken(config('botfb.pageAccessToken'));
+        Solid::setSender($senderId);
 
-        $callSendApi->make($text->message('Olá, voce digitou' . $message));
-        // $callSendApi->make($text->message('Você digitou', $message));
+        if ($postback) {
+            $bot->message('text', 'Voce chamou o postback' . $postback);
+            return '';
+        }
 
-        $message = new ButtonsTemplate($senderId);
-        $message->add(new Button('web_url', 'Google', 'https://www.google.com'));
-        $callSendApi->make($message->message('Texto do botão'));
+        $bot->message('text', 'Oi, eu sou o Bot');
+        $bot->message('text', 'Você digitou: ' . $message);
 
-        $product = new Product(
-            'Produto',
-            'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
-            'Subtitulo do Produto',
-            new Button('web_url', null, 'http://www.google.com')
-        );
-        $product2 = new Product(
-            'Produto',
-            'https://www.idealmarketing.com.br/blog/wp-content/uploads/2018/09/marketing-de-produto-conceito.jpg',
-            'Subtitulo do Produto',
-            new Button('web_url', null, 'http://www.google.com')
-        );
+        $buttons = [
+            new Button('web_url', 'Google', 'https://www.google.com')
+        ];
+        $bot->template('buttons', 'Abrir o link', $buttons, []);
 
-        $template = new ListTemplate($senderId);
-        $template->add($product);
-        $template->add($product2);
+        $products = [
+            new Product(
+                'Produto 1',
+                'https://www.google.com',
+                'Google',
+                new Button('web_url', 'Google', 'https://www.google.com')
+            )
+        ];
 
-        $callSendApi->make($template->message('message'));
-
-        $template = new GenericTemplate($senderId);
-        $template->add($product);
-        $template->add($product2);
-
-        $callSendApi->make($template->message('message'));
-
+        $bot->template('generic', '', $products, []);
 
         return '';
     }
