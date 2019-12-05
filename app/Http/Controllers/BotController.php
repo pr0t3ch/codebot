@@ -54,16 +54,28 @@ class BotController extends Controller
         ];
         $bot->template('buttons', 'Abrir o link', $buttons);
 
+        $bot->message('image', 'https://assets.b9.com.br/wp-content/uploads/2015/08/kuat-gif.gif');
+        $bot->message('audio', 'http://www.portalqualis.com.br/hospital/assets/sounds/warning.mp3');
+        $bot->message('file', 'https://www.portalqualis.com.br/hospital/assets/manual/manual.pdf');
+        $bot->message('video', 'http://www.portalqualis.com.br/hospital/assets/videos/bacteriologia.mp4');
+
         $products = [
             new Product(
                 'Produto 1',
-                'https://www.google.com',
+                'https://assets.b9.com.br/wp-content/uploads/2015/08/kuat-gif.gif',
+                'Google',
+                new Button('web_url', 'Google', 'https://www.google.com')
+            ),
+            new Product(
+                'Produto 1',
+                'https://assets.b9.com.br/wp-content/uploads/2015/08/kuat-gif.gif',
                 'Google',
                 new Button('web_url', 'Google', 'https://www.google.com')
             )
         ];
 
-        $bot->template('generic', '', $products, []);
+        $bot->template('generic', '', $products);
+        $bot->template('list', '', $products);
 
         return '';
     }
