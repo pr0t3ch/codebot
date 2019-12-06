@@ -36,4 +36,20 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(\Illuminate\Http\Request $request, $user)
+    {
+        return ['status' => 'success'];
+    }
+
+    protected function sendFailedLoginResponse(\Illuminate\Http\Request $request)
+    {
+        $errors = [$this->username() => trans('auth.failed')];
+
+        if ($request->expectsJson()) {
+            return response()->json($errors, 422);
+        }
+
+        return ['status' => 'error', 'errors' => $errors];
+    }
 }

@@ -12,10 +12,9 @@
 */
 
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\Api\v1\UserController;
 
 Route::get('/', function () {
-    $text = (new CodeBot\Message\Text(1))->message('hello');
-    dd($text);
     return view('welcome');
 });
 
@@ -24,3 +23,21 @@ Route::prefix('bot')
         Route::get('/webhook', 'BotController@subscribe');
         Route::post('/webhook', 'BotController@receiveMessage');
     });
+
+Route::prefix('api/v1')
+    ->namespace('Api\v1')
+    ->group(function () {
+        Route::get('users/me', 'UserController@me');
+    });
+
+Route::prefix('api/v1')
+    ->middleware('auth')
+    ->namespace('Api\v1')
+    ->group(function () {
+        Route::resource('/users', 'UserController');
+    });
+
+
+
+
+Auth::routes();
