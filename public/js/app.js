@@ -1827,6 +1827,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1887,6 +1891,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1911,9 +1927,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         remove: function remove() {
-
             var item = this;
-
             __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
                 title: "Removendo",
                 text: "Você está removendo este postback",
@@ -1932,6 +1946,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$store.dispatch('removePostback', this.$route.params.id).then(function () {
                 __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()("Removido", "Removido com sucesso", "success");
                 _this2.$router.push("/");
+            });
+        },
+        addGetStarted: function addGetStarted() {
+            var item = this;
+            __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
+                title: "Definir como padrão?",
+                text: "Este botão será o padrão do bot",
+                icon: "warning",
+                dangerMode: true,
+                buttons: true
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    item.addItemGetStarted();
+                }
+            });
+        },
+        addItemGetStarted: function addItemGetStarted() {
+            this.$store.dispatch('addGetStarted', this.$route.params.id).then(function () {
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()("Adicionado", "Adicionado com sucesso", "success");
+            });
+            this.$store.dispatch('getPostback', this.$route.params.id);
+        },
+        removeGetStarted: function removeGetStarted() {
+            var item = this;
+            __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
+                title: "Retirar como padrão?",
+                text: "Este será retirado do bot",
+                icon: "warning",
+                dangerMode: true,
+                buttons: true
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    item.removeItemGetStarted();
+                }
+            });
+        },
+        removeItemGetStarted: function removeItemGetStarted() {
+            this.$store.dispatch('removeGetStarted', this.$route.params.id).then(function (res) {
+                var err = res.data.error || null;
+                if (err) {
+                    var message = "Algo deu errado";
+                    if (err.code === 100) {
+                        message = 'Você precisa manter o botão começar';
+                    }
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()("Erro", message, "error");
+                } else {
+                    __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()("Botão desativado", "Adicione novamente", "success");
+                }
             });
         }
     },
@@ -33058,7 +33120,15 @@ var render = function() {
             staticClass: "waves-effect btn waves-light light-green",
             attrs: { to: { path: "/postback/" + postback.id } }
           },
-          [_vm._v(_vm._s(postback.value))]
+          [
+            postback.get_started
+              ? _c("i", { staticClass: "material-icons" }, [_vm._v("done_all")])
+              : _vm._e(),
+            _vm._v("\n        " + _vm._s(postback.value) + "\n        "),
+            postback.get_started
+              ? _c("small", [_vm._v("Botão inicial")])
+              : _vm._e()
+          ]
         )
       }),
       _vm._v(" "),
@@ -33357,6 +33427,40 @@ var render = function() {
           { staticClass: "btn waves-effect", attrs: { to: { path: "/" } } },
           [_vm._v("Voltar")]
         ),
+        _vm._v(" "),
+        !_vm.postback.get_started
+          ? _c(
+              "a",
+              {
+                staticClass: "btn green",
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.addGetStarted()
+                  }
+                }
+              },
+              [_vm._v("Definir como padrão")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.postback.get_started
+          ? _c(
+              "a",
+              {
+                staticClass: "btn red",
+                attrs: { href: "" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.removeGetStarted()
+                  }
+                }
+              },
+              [_vm._v("Remover do padrão")]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "a",
@@ -49747,6 +49851,12 @@ module.exports = Component.exports
         },
         removePostback: function removePostback(context, id) {
             return window.axios.delete('api/v1/postbacks/' + id);
+        },
+        addGetStarted: function addGetStarted(context, id) {
+            return window.axios.post('api/v1/postbacks/started-button/' + id);
+        },
+        removeGetStarted: function removeGetStarted(context) {
+            return window.axios.delete('api/v1/postbacks/started-button');
         }
     }
 });

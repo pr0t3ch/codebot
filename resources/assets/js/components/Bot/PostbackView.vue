@@ -13,6 +13,18 @@
         <p>
             <router-link :to="{path: '/'}" class="btn waves-effect">Voltar</router-link>
             <a
+                @click.prevent="addGetStarted()"
+                href
+                v-if="!postback.get_started"
+                class="btn green"
+            >Definir como padrão</a>
+            <a
+                @click.prevent="removeGetStarted()"
+                href
+                v-if="postback.get_started"
+                class="btn red"
+            >Remover do padrão</a>
+            <a
                 class="btn blue waves-effect"
                 @click.prevent="showEditForm = !showEditForm"
                 href
@@ -45,9 +57,7 @@ import swal from 'sweetalert';
                 })
             },
             remove() {
-
                 let item = this;
-
                 swal({
                     title: "Removendo",
                     text: "Você está removendo este postback",
@@ -65,6 +75,59 @@ import swal from 'sweetalert';
                     .then(() => {
                         swal("Removido", "Removido com sucesso", "success")
                         this.$router.push("/")
+                    })
+
+            },
+            addGetStarted() {
+                let item = this;
+                swal({
+                    title: "Definir como padrão?",
+                    text: "Este botão será o padrão do bot",
+                    icon: "warning",
+                    dangerMode: true,
+                    buttons: true,
+                }).then(function(isConfirm) {
+                if (isConfirm) {
+                    item.addItemGetStarted()
+                    } 
+                })
+            },
+            addItemGetStarted() {
+                this.$store.dispatch('addGetStarted', this.$route.params.id)
+                    .then(() => {
+                        swal("Adicionado", "Adicionado com sucesso", "success")
+                    })
+                this.$store.dispatch('getPostback',this.$route.params.id)
+
+            },
+            removeGetStarted() {
+                let item = this;
+                swal({
+                    title: "Retirar como padrão?",
+                    text: "Este será retirado do bot",
+                    icon: "warning",
+                    dangerMode: true,
+                    buttons: true,
+                }).then(function(isConfirm) {
+                if (isConfirm) {
+                    item.removeItemGetStarted()
+                    } 
+                })
+            },
+            removeItemGetStarted() {
+                this.$store.dispatch('removeGetStarted', this.$route.params.id)
+                    .then((res) => {
+                        let err = res.data.error || null;
+                        if(err) {
+                            let message = "Algo deu errado";
+                            if(err.code === 100) {
+                                message = 'Você precisa manter o botão começar'
+                            }
+                            swal("Erro", message, "error")
+                        } else {
+                            swal("Botão desativado", "Adicione novamente", "success")
+                        }
+                        
                     })
 
             }

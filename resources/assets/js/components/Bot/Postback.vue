@@ -6,7 +6,11 @@
             v-for="postback in postbacks.data"
             class="waves-effect btn waves-light light-green"
             :to="{path: `/postback/${postback.id}`}"
-        >{{ postback.value }}</router-link>
+        >
+            <i class="material-icons" v-if="postback.get_started">done_all</i>
+            {{ postback.value }}
+            <small v-if="postback.get_started">Botão inicial</small>
+        </router-link>
 
         <hr />
 
