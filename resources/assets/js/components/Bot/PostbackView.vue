@@ -31,12 +31,42 @@
             >editar</a>
             <a class="btn red waves-effect" @click.prevent="remove()" href>remover</a>
         </p>
+        <message></message>
+
+        <div class="card light-green">
+            <div class="card-content">
+                <form>
+                    <h5>Nova mensagem</h5>
+                    <div class="input-field">
+                        <select class="browser-default">
+                            <option value disabled>Tipo de mensagem</option>
+                            <optgroup label="Mensagem">
+                                <option value="text">Texto</option>
+                                <option value="file">Arquivo</option>
+                                <option value="audio">Audio</option>
+                                <option value="image">Imagem</option>
+                                <option value="video">Vídeo</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="input-field messageField">
+                        <input type="text" required />
+                        <label>Mensagem</label>
+                    </div>
+                    <input type="submit" value="+" class="btn green" />
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import swal from 'sweetalert';
+import message from './Message'
     export default {
+        components: {
+            'message': message
+        },
         data: function() {
             return {
                 showEditForm: false,
@@ -142,3 +172,21 @@ import swal from 'sweetalert';
         }
     }
 </script>
+
+<style lang="scss">
+    .messageField {
+        background-color: rgba(255,255,255,0.9);
+        margin-bottom: 20x;
+        padding: 20px;
+        border-radius: 2px;
+
+        input {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        label {
+            left: 10px;
+        }
+    }
+</style>
