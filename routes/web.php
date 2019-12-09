@@ -13,6 +13,7 @@
 
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\Api\v1\UserController;
+use App\Http\Controllers\Api\v1\PostbackController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,7 +35,7 @@ Route::prefix('api/v1')
     ->middleware('auth')
     ->namespace('Api\v1')
     ->group(function () {
-        Route::resource('/users', 'UserController');
+        Route::resource('/postbacks', 'PostbackController');
     });
 
 
