@@ -32,7 +32,7 @@ class BotController extends Controller
         Solid::pageAccessToken(config('botfb.pageAccessToken'));
         Solid::setSender($senderId);
 
-        $postback = Postback::where('value', $postback)->fist();
+        $postback = Postback::where('value', $postback)->first();
 
         foreach ($postback->messages as $message) {
             (new MessageBuilderRepository)->createMessage($bot, $message);
