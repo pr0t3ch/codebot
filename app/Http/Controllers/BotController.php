@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use CodeBot\SenderRequest;
-use CodeBot\Element\Button;
-use CodeBot\Element\Product;
 use CodeBot\WebHook;
 use Illuminate\Http\Request;
 use CodeBot\Build\Solid;
+use App\Postback;
+use App\Repositories\MessageBuilderRepository;
 
 class BotController extends Controller
 {
@@ -26,13 +26,17 @@ class BotController extends Controller
     {
         $sender = new SenderRequest;
         $senderId = $sender->getSenderId();
-        $message = $sender->getMessage();
         $postback = $sender->getPostBack();
 
         $bot = Solid::factory();
         Solid::pageAccessToken(config('botfb.pageAccessToken'));
         Solid::setSender($senderId);
 
+        $postback = Postback::where('value', $postback)->fist();
+
+        foreach ($postback->messages as $message) {
+            (new MessageBuilderRepository)->createMessage($bot, $message);
+        }
 
         return '';
     }

@@ -14,6 +14,7 @@ class PostbackController extends Controller
     use ApiControllerTrait;
 
     protected $model;
+    protected $relationships = ['Messages'];
 
     public function __construct(Postback $model)
     {

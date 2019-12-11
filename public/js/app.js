@@ -1821,8 +1821,108 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['messageData'],
+    data: function data() {
+        return {
+            currentMessage: null,
+            showEditForm: false
+        };
+    },
+    methods: {
+        update: function update(message) {
+            var _this = this;
+
+            var data = {
+                id: this.message.id,
+                data: {
+                    type: this.message.type,
+                    message: message
+                }
+            };
+
+            this.$store.dispatch('updateMessage', data).then(function () {
+                swal('Salvo com sucesso', 'O bot já responde com essa atualização', 'success');
+                _this.message.message = message;
+                _this.showEditForm = false;
+                _this.$store.dispatch('getPostback', _this.$route.params.id);
+            });
+        },
+        remove: function remove(id) {
+
+            var item = this;
+            swal({
+                title: "Removendo",
+                text: "Você está removendo esta mensagem",
+                icon: "warning",
+                dangerMode: true,
+                buttons: true
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    item.removeItens(id);
+                }
+            });
+        },
+        removeItens: function removeItens(id) {
+            var _this2 = this;
+
+            this.$store.dispatch('removeMessage', id).then(function () {
+                swal('Removido com sucesso', 'O bot já não responde', 'success');
+                _this2.$store.dispatch('getPostback', _this2.$route.params.id);
+            });
+        }
+    },
+    computed: {
+        message: function message() {
+            return this.messageData;
+        }
+
+    }
+});
 
 /***/ }),
 
@@ -1957,6 +2057,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1966,7 +2071,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            showEditForm: false
+            showEditForm: false,
+            dataToSave: {
+                type: '',
+                message: ''
+            }
         };
     },
     methods: {
@@ -1980,7 +2089,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             };
             this.$store.dispatch('updatePostback', data).then(function () {
-                __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()('Salvo com sucess', 'O bot já entende o postack', 'success');
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()('Salvo com sucess', 'O bot já entende o postback', 'success');
                 _this.showEditForm = false;
             });
         },
@@ -2052,6 +2161,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 } else {
                     __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()("Botão desativado", "Adicione novamente", "success");
                 }
+            });
+        },
+        newMessage: function newMessage() {
+            var _this3 = this;
+
+            var $ = window.jQuery;
+            $('.messageSave').val('aguarde...').attr('disabled', true);
+
+            var data = {
+                type: this.dataToSave.type || 'text',
+                message: this.dataToSave.message,
+                template: false,
+                postback_id: this.$route.params.id
+            };
+
+            var messageTypes = ['text', 'file', 'audio', 'image', 'video'];
+
+            if (messageTypes.indexOf(data.type) === -1) {
+                data.template = true;
+            }
+
+            this.$store.dispatch('newMessage', data).then(function () {
+                $('.messageSave').val('+').attr('disabled', false);
+                __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()('Salvo com sucesso', 'O bot já deve responder', 'success');
+                _this3.dateToSave = { type: 'text' };
+                _this3.$store.dispatch('getPostback', _this3.$route.params.id);
             });
         }
     },
@@ -33652,12 +33787,108 @@ var render = function() {
         ],
         1
       ),
+      _vm._v("\n    " + _vm._s() + "\n    "),
+      _vm._l(_vm.postback.messages, function(message) {
+        return _c("message", {
+          key: message.id,
+          attrs: { "message-data": message }
+        })
+      }),
       _vm._v(" "),
-      _c("message"),
-      _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "card light-green" }, [
+        _c("div", { staticClass: "card-content" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.newMessage()
+                }
+              }
+            },
+            [
+              _c("h5", [_vm._v("Nova mensagem")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-field" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.dataToSave.type,
+                        expression: "dataToSave.type"
+                      }
+                    ],
+                    staticClass: "browser-default",
+                    attrs: { required: "" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.dataToSave,
+                          "type",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "", disabled: "" } }, [
+                      _vm._v("Tipo de mensagem")
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-field messageField" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.dataToSave.message,
+                      expression: "dataToSave.message"
+                    }
+                  ],
+                  attrs: { type: "text", required: "" },
+                  domProps: { value: _vm.dataToSave.message },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.dataToSave, "message", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", [_vm._v("Mensagem")])
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn green messageSave",
+                attrs: { type: "submit", value: "+" }
+              })
+            ]
+          )
+        ])
+      ])
     ],
-    1
+    2
   )
 }
 var staticRenderFns = [
@@ -33665,43 +33896,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card light-green" }, [
-      _c("div", { staticClass: "card-content" }, [
-        _c("form", [
-          _c("h5", [_vm._v("Nova mensagem")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-field" }, [
-            _c("select", { staticClass: "browser-default" }, [
-              _c("option", { attrs: { value: "", disabled: "" } }, [
-                _vm._v("Tipo de mensagem")
-              ]),
-              _vm._v(" "),
-              _c("optgroup", { attrs: { label: "Mensagem" } }, [
-                _c("option", { attrs: { value: "text" } }, [_vm._v("Texto")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "file" } }, [_vm._v("Arquivo")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "audio" } }, [_vm._v("Audio")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "image" } }, [_vm._v("Imagem")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "video" } }, [_vm._v("Vídeo")])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-field messageField" }, [
-            _c("input", { attrs: { type: "text", required: "" } }),
-            _vm._v(" "),
-            _c("label", [_vm._v("Mensagem")])
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "btn green",
-            attrs: { type: "submit", value: "+" }
-          })
-        ])
-      ])
+    return _c("optgroup", { attrs: { label: "Mensagem" } }, [
+      _c("option", { attrs: { value: "text" } }, [_vm._v("Texto")]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "file" } }, [_vm._v("Arquivo")]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "audio" } }, [_vm._v("Audio")]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "image" } }, [_vm._v("Imagem")]),
+      _vm._v(" "),
+      _c("option", { attrs: { value: "video" } }, [_vm._v("Vídeo")])
     ])
   }
 ]
@@ -33723,31 +33927,142 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("span", { staticClass: "green white-text badge" }, [_vm._v("text")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-content" }, [
-        _c("blockquote", [
-          _c("strong", [_vm._v("Mensagem:")]),
-          _vm._v(" Bla bla bla\n        ")
-        ])
+  return _c("div", { staticClass: "card" }, [
+    _c("span", { staticClass: "green white-text badge" }, [
+      _vm._v(_vm._s(_vm.message.type))
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-content" }, [
+      _c("blockquote", [
+        _c("strong", [_vm._v("Mensagem:")]),
+        _vm._v("\n            " + _vm._s(_vm.message.message) + "\n        ")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "card-action" }, [
-        _c("a", { attrs: { href: "" } }, [_vm._v("editar")]),
-        _vm._v(" "),
-        _c("a", { attrs: { href: "" } }, [_vm._v("remover")])
-      ])
+      _vm.message.type === "image"
+        ? _c("img", {
+            staticClass: "responsive-img",
+            attrs: { src: _vm.message.message }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.message.type === "audio"
+        ? _c("audio", { attrs: { controls: "" } }, [
+            _c("source", { attrs: { src: _vm.message.message } })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.message.type === "video"
+        ? _c("div", { staticClass: "video-container" }, [
+            _c(
+              "video",
+              { staticStyle: { "max-width": "100%" }, attrs: { controls: "" } },
+              [_c("source", { attrs: { src: _vm.message.message } })]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.message.type === "file"
+        ? _c("blockquote", [
+            _c("a", { attrs: { href: _vm.message.message } }, [
+              _c("i", { staticClass: "material-icons" }, [
+                _vm._v("attach_file")
+              ]),
+              _vm._v("\n                Arquivo para download\n            ")
+            ])
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showEditForm
+        ? _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.update(_vm.currentMessage)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "input-field" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.currentMessage,
+                      expression: "currentMessage"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", autofocus: "", required: "" },
+                  domProps: { value: _vm.currentMessage },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.currentMessage = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "active" } }, [_vm._v("Mensagem")]),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn",
+                  attrs: { type: "submit", value: "Atualizar" }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "btn lime",
+                  attrs: { type: "button", value: "Cancelar" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.showEditForm = !_vm.showEditForm
+                    }
+                  }
+                })
+              ])
+            ]
+          )
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-action" }, [
+      _c(
+        "a",
+        {
+          attrs: { href: "" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              _vm.showEditForm = !_vm.showEditForm
+              _vm.currentMessage = _vm.message.message
+            }
+          }
+        },
+        [_vm._v("editar")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          attrs: { href: "" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.remove(_vm.message.id)
+            }
+          }
+        },
+        [_vm._v("remover")]
+      )
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -50398,11 +50713,56 @@ module.exports = Component.exports
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_postbacks__ = __webpack_require__("./resources/assets/js/states/modules/postbacks.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_messages__ = __webpack_require__("./resources/assets/js/states/modules/messages.js");
+
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     modules: {
-        postback: __WEBPACK_IMPORTED_MODULE_0__modules_postbacks__["a" /* default */]
+        postback: __WEBPACK_IMPORTED_MODULE_0__modules_postbacks__["a" /* default */],
+        messages: __WEBPACK_IMPORTED_MODULE_1__modules_messages__["a" /* default */]
+    }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/states/modules/messages.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: {
+        listMessages: { data: [] },
+        Message: {}
+    },
+    mutations: {
+        updateMessageList: function updateMessageList(state, data) {
+            state.listMessages = data;
+        },
+        updatePostback: function updatePostback(state, data) {
+            state.postback = data;
+        }
+    },
+    actions: {
+        getMessages: function getMessages(context) {
+            return window.axios.get('api/v1/messages').then(function (response) {
+                context.commit('updatePostbackList', response.data);
+            });
+        },
+        getMessage: function getMessage(context, id) {
+            return window.axios.get('api/v1/messages/' + id).then(function (response) {
+                context.commit('updateMessage', response.data);
+            });
+        },
+        newMessage: function newMessage(context, data) {
+            return window.axios.post('api/v1/messages', data);
+        },
+        updateMessage: function updateMessage(context, data) {
+            return window.axios.put('api/v1/messages/' + data.id, data.data);
+        },
+        removeMessage: function removeMessage(context, id) {
+            return window.axios.delete('api/v1/messages/' + id);
+        }
     }
 });
 

@@ -14,6 +14,7 @@
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\PostbackController;
+use App\Http\Controllers\Api\v1\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +39,7 @@ Route::prefix('api/v1')
         Route::post('/postbacks/started-button/{id}', 'PostbackController@setGetStarted');
         Route::delete('/postbacks/started-button', 'PostbackController@removeGetStartedButton');
         Route::resource('/postbacks', 'PostbackController');
+        Route::resource('/messages', 'MessageController');
     });
 
 

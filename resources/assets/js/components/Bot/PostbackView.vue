@@ -31,14 +31,19 @@
             >editar</a>
             <a class="btn red waves-effect" @click.prevent="remove()" href>remover</a>
         </p>
-        <message></message>
+        {{ }}
+        <message
+            v-bind:key="message.id"
+            v-for="message in postback.messages"
+            :message-data="message"
+        ></message>
 
         <div class="card light-green">
             <div class="card-content">
-                <form>
+                <form @submit.prevent="newMessage()">
                     <h5>Nova mensagem</h5>
                     <div class="input-field">
-                        <select class="browser-default">
+                        <select class="browser-default" required v-model="dataToSave.type">
                             <option value disabled>Tipo de mensagem</option>
                             <optgroup label="Mensagem">
                                 <option value="text">Texto</option>
@@ -50,10 +55,10 @@
                         </select>
                     </div>
                     <div class="input-field messageField">
-                        <input type="text" required />
+                        <input type="text" required v-model="dataToSave.message" />
                         <label>Mensagem</label>
                     </div>
-                    <input type="submit" value="+" class="btn green" />
+                    <input type="submit" value="+" class="btn green messageSave" />
                 </form>
             </div>
         </div>
@@ -70,6 +75,10 @@ import message from './Message'
         data: function() {
             return {
                 showEditForm: false,
+                dataToSave : {
+                    type: '',
+                    message: ''
+                }
             }
         },
         methods: {
@@ -82,7 +91,7 @@ import message from './Message'
                 }
                 this.$store.dispatch('updatePostback', data)
                 .then(() => {
-                    swal('Salvo com sucess', 'O bot já entende o postack', 'success')
+                    swal('Salvo com sucess', 'O bot já entende o postback', 'success')
                     this.showEditForm = false
                 })
             },
@@ -159,6 +168,38 @@ import message from './Message'
                         }
                         
                     })
+
+            },
+            newMessage() {
+                const $ = window.jQuery;
+                $('.messageSave').val('aguarde...').attr('disabled', true);
+
+                let data = {
+                    type: this.dataToSave.type || 'text',
+                    message: this.dataToSave.message,
+                    template: false,
+                    postback_id: this.$route.params.id
+                }
+
+                let messageTypes = [
+                    'text',
+                    'file',
+                    'audio',
+                    'image',
+                    'video',
+                ]
+
+                if(messageTypes.indexOf(data.type) === -1) {
+                    data.template= true;
+                }
+
+                this.$store.dispatch('newMessage', data)
+                .then(() => {
+                    $('.messageSave').val('+').attr('disabled', false);
+                    swal('Salvo com sucesso', 'O bot já deve responder', 'success');
+                    this.dateToSave = {type: 'text'};
+                    this.$store.dispatch('getPostback',this.$route.params.id)
+                })
 
             }
         },
