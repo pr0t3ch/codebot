@@ -1805,6 +1805,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Templates_Buttons__ = __webpack_require__("./resources/assets/js/components/Bot/Templates/Buttons.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Templates_Buttons___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Templates_Buttons__);
+//
+//
+//
 //
 //
 //
@@ -1865,8 +1870,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['messageData'],
+    components: {
+        buttons: __WEBPACK_IMPORTED_MODULE_0__Templates_Buttons___default.a
+    },
     data: function data() {
         return {
             currentMessage: null,
@@ -1995,6 +2004,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Message__ = __webpack_require__("./resources/assets/js/components/Bot/Message.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Message___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Message__);
+//
+//
+//
 //
 //
 //
@@ -2197,6 +2209,135 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.$store.dispatch('getPostback', this.$route.params.id);
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: ['messageData'],
+    data: function data() {
+        return {
+            message: this.messageData,
+            dataToSave: {
+                type: ''
+            },
+            elements: { data: [] }
+        };
+    },
+    methods: {
+        newButton: function newButton() {
+            var _this = this;
+
+            var data = {
+                type: this.dataToSave.type,
+                title: this.dataToSave.title,
+                postback: this.dataToSave.postback,
+                message_id: this.message.id
+            };
+
+            if (data.type === 'web_url_compact') {
+                data.type = 'web_url';
+                data_webview_height_ratio = 'compact';
+            }
+
+            if (data.type === 'web_url_tall') {
+                data.type = 'web_url';
+                data_webview_height_ratio = 'tall';
+            }
+
+            if (data.type === 'web_url_full') {
+                data.type = 'web_url';
+                data_webview_height_ratio = 'full';
+            }
+
+            this.$store.dispatch('newElement', data).then(function () {
+                _this.dataToSave = { type: '' };
+                _this.$store.dispatch('getElements', _this.message_id).then(function (response) {
+                    _this.elements = response.data;
+                });
+            });
+        },
+        removeButton: function removeButton(id) {
+            var _this2 = this;
+
+            this.$store.dispatch('removeElement', id).then(function () {
+                _this2.$store.dispatch('getElements', _this2.message.id).then(function (response) {
+                    _this2.elements = response.data;
+                });
+            });
+        }
+    },
+    mounted: function mounted() {
+        var _this3 = this;
+
+        this.$store.dispatch('getElements', this.message.id).then(function (response) {
+            _this3.elements = response.data;
+        });
     }
 });
 
@@ -4785,6 +4926,21 @@ if (typeof jQuery === 'undefined') {
   })
 
 }(jQuery);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b028fc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\nform {\n    padding: 10px;\n    border-radius: 5px;\n    margin-top: 10px;\n}\n.btn-floating {\n    width: 20px;\n    height: 20px;\n    line-height: 20px;\n}\n.btn-floating i {\n    font-size: 15px;\n    line-height: 20px;\n}\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -33216,6 +33372,226 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-07b028fc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.elements.data.length > 0
+      ? _c(
+          "div",
+          [
+            _c("strong", [_vm._v("Botões")]),
+            _vm._v(" "),
+            _vm._l(_vm.elements.data, function(element) {
+              return _c("div", { key: element.title, staticClass: "chip" }, [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(element.title) +
+                    " - postback: " +
+                    _vm._s(element.postback) +
+                    "\n            "
+                ),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn-floating red",
+                    attrs: { href: "" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.removeButton(element.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", { staticClass: "material-icons" }, [
+                      _vm._v("close")
+                    ])
+                  ]
+                )
+              ])
+            })
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        staticClass: "grey lighten-4",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.newButton()
+          }
+        }
+      },
+      [
+        _c("strong", [_vm._v("Novo botão")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-field inline" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.dataToSave.type,
+                  expression: "dataToSave.type"
+                }
+              ],
+              staticClass: "browser-default",
+              attrs: { required: "" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.dataToSave,
+                    "type",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c(
+                "option",
+                { attrs: { value: "", disabled: "", selected: "" } },
+                [_vm._v("Escolha o tipo de botão")]
+              ),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "postback" } }, [
+                _vm._v("Postback")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "web_url" } }, [_vm._v("Link")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "web_url_compact" } }, [
+                _vm._v("Web View compacta")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "web_url_tall" } }, [
+                _vm._v("Web View Alta")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "web_url_full" } }, [
+                _vm._v("Web View Completa")
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-field inline" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.dataToSave.title,
+                expression: "dataToSave.title"
+              }
+            ],
+            attrs: {
+              type: "text",
+              placeholder: "titulo do botao",
+              required: "",
+              maxlength: "20"
+            },
+            domProps: { value: _vm.dataToSave.title },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.dataToSave, "title", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { staticClass: "active", attrs: { for: "title" } }, [
+            _vm._v("Título")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-field inline" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.dataToSave.postback,
+                expression: "dataToSave.postback"
+              }
+            ],
+            attrs: {
+              type: "text",
+              placeholder: "Qual o destino",
+              required: "",
+              maxlength: "20"
+            },
+            domProps: { value: _vm.dataToSave.postback },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.dataToSave, "postback", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { staticClass: "active", attrs: { for: "title" } }, [
+            _vm._v("Destino")
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn", attrs: { type: "submit", value: "+" } },
+          [_vm._v("+")]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card red" }, [
+      _c("div", { staticClass: "card-content white-text" }, [
+        _vm._v("Nenhum botao")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-07b028fc", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-49f475a3\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Auth/Register.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33849,7 +34225,9 @@ var render = function() {
                       _vm._v("Tipo de mensagem")
                     ]),
                     _vm._v(" "),
-                    _vm._m(0)
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._m(1)
                   ]
                 )
               ]),
@@ -33907,6 +34285,14 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("option", { attrs: { value: "video" } }, [_vm._v("Vídeo")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("optgroup", { attrs: { label: "Templates" } }, [
+      _c("option", { attrs: { value: "buttons" } }, [_vm._v("Botões")])
+    ])
   }
 ]
 render._withStripped = true
@@ -33932,103 +34318,117 @@ var render = function() {
       _vm._v(_vm._s(_vm.message.type))
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card-content" }, [
-      _c("blockquote", [
-        _c("strong", [_vm._v("Mensagem:")]),
-        _vm._v("\n            " + _vm._s(_vm.message.message) + "\n        ")
-      ]),
-      _vm._v(" "),
-      _vm.message.type === "image"
-        ? _c("img", {
-            staticClass: "responsive-img",
-            attrs: { src: _vm.message.message }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.message.type === "audio"
-        ? _c("audio", { attrs: { controls: "" } }, [
-            _c("source", { attrs: { src: _vm.message.message } })
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.message.type === "video"
-        ? _c("div", { staticClass: "video-container" }, [
-            _c(
-              "video",
-              { staticStyle: { "max-width": "100%" }, attrs: { controls: "" } },
-              [_c("source", { attrs: { src: _vm.message.message } })]
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.message.type === "file"
-        ? _c("blockquote", [
-            _c("a", { attrs: { href: _vm.message.message } }, [
-              _c("i", { staticClass: "material-icons" }, [
-                _vm._v("attach_file")
-              ]),
-              _vm._v("\n                Arquivo para download\n            ")
+    _c(
+      "div",
+      { staticClass: "card-content" },
+      [
+        _c("blockquote", [
+          _c("strong", [_vm._v("Mensagem:")]),
+          _vm._v("\n            " + _vm._s(_vm.message.message) + "\n        ")
+        ]),
+        _vm._v(" "),
+        _vm.message.type === "image"
+          ? _c("img", {
+              staticClass: "responsive-img",
+              attrs: { src: _vm.message.message }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.message.type === "audio"
+          ? _c("audio", { attrs: { controls: "" } }, [
+              _c("source", { attrs: { src: _vm.message.message } })
             ])
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showEditForm
-        ? _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.update(_vm.currentMessage)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "input-field" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.currentMessage,
-                      expression: "currentMessage"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text", autofocus: "", required: "" },
-                  domProps: { value: _vm.currentMessage },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.currentMessage = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "active" } }, [_vm._v("Mensagem")]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "btn",
-                  attrs: { type: "submit", value: "Atualizar" }
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "btn lime",
-                  attrs: { type: "button", value: "Cancelar" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.showEditForm = !_vm.showEditForm
-                    }
-                  }
-                })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.message.type === "video"
+          ? _c("div", { staticClass: "video-container" }, [
+              _c(
+                "video",
+                {
+                  staticStyle: { "max-width": "100%" },
+                  attrs: { controls: "" }
+                },
+                [_c("source", { attrs: { src: _vm.message.message } })]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.message.type === "file"
+          ? _c("blockquote", [
+              _c("a", { attrs: { href: _vm.message.message } }, [
+                _c("i", { staticClass: "material-icons" }, [
+                  _vm._v("attach_file")
+                ]),
+                _vm._v("\n                Arquivo para download\n            ")
               ])
-            ]
-          )
-        : _vm._e()
-    ]),
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.message.type === "buttons"
+          ? _c("buttons", { attrs: { "message-data": _vm.message } })
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.showEditForm
+          ? _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.update(_vm.currentMessage)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "input-field" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.currentMessage,
+                        expression: "currentMessage"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", autofocus: "", required: "" },
+                    domProps: { value: _vm.currentMessage },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.currentMessage = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "active" } }, [
+                    _vm._v("Mensagem")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "btn",
+                    attrs: { type: "submit", value: "Atualizar" }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "btn lime",
+                    attrs: { type: "button", value: "Cancelar" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.showEditForm = !_vm.showEditForm
+                      }
+                    }
+                  })
+                ])
+              ]
+            )
+          : _vm._e()
+      ],
+      1
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "card-action" }, [
       _c(
@@ -36961,6 +37361,33 @@ if (inBrowser && window.Vue) {
 
 /* harmony default export */ __webpack_exports__["a"] = (VueRouter);
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b028fc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b028fc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("15de27d1", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b028fc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Buttons.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b028fc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Buttons.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -50708,19 +51135,117 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/Bot/Templates/Buttons.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-07b028fc\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-07b028fc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Bot/Templates/Buttons.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Bot/Templates/Buttons.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-07b028fc", Component.options)
+  } else {
+    hotAPI.reload("data-v-07b028fc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/states/index.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__modules_postbacks__ = __webpack_require__("./resources/assets/js/states/modules/postbacks.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_messages__ = __webpack_require__("./resources/assets/js/states/modules/messages.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_elements__ = __webpack_require__("./resources/assets/js/states/modules/elements.js");
+
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     modules: {
         postback: __WEBPACK_IMPORTED_MODULE_0__modules_postbacks__["a" /* default */],
-        messages: __WEBPACK_IMPORTED_MODULE_1__modules_messages__["a" /* default */]
+        messages: __WEBPACK_IMPORTED_MODULE_1__modules_messages__["a" /* default */],
+        elements: __WEBPACK_IMPORTED_MODULE_2__modules_elements__["a" /* default */]
+    }
+});
+
+/***/ }),
+
+/***/ "./resources/assets/js/states/modules/elements.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: {
+        listElementss: { data: [] },
+        Elements: {}
+    },
+    mutations: {
+        updateElementsList: function updateElementsList(state, data) {
+            state.listElements = data;
+        },
+        updatePostback: function updatePostback(state, data) {
+            state.postback = data;
+        }
+    },
+    actions: {
+        getElements: function getElements(context, message_id) {
+            return window.axios.get('api/v1/elements?where[message_id=' + message_id + ']').then(function (response) {
+                context.commit('updatePostbackList', response.data);
+                return response;
+            });
+        },
+        getElement: function getElement(context, id) {
+            return window.axios.get('api/v1/elements/' + id).then(function (response) {
+                context.commit('updateElement', response.data);
+            });
+        },
+        newElement: function newElement(context, data) {
+            return window.axios.post('api/v1/elements', data);
+        },
+        updateElement: function updateElement(context, data) {
+            return window.axios.put('api/v1/elements/' + data.id, data.data);
+        },
+        removeElement: function removeElement(context, id) {
+            return window.axios.delete('api/v1/elements/' + id);
+        }
     }
 });
 

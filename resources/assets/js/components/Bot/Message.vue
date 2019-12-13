@@ -23,6 +23,9 @@
                     Arquivo para download
                 </a>
             </blockquote>
+
+            <buttons v-if="message.type === 'buttons'" :message-data="message"></buttons>
+
             <form @submit.prevent="update(currentMessage)" v-if="showEditForm">
                 <div class="input-field">
                     <input
@@ -58,10 +61,14 @@
 
 
 <script>
+import Buttons from './Templates/Buttons';
     export default {
         props: [
             'messageData'
         ],
+        components: {
+            buttons: Buttons
+        },
         data: function() {
             return {
                 currentMessage: null,
