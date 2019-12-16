@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\PostbackController;
 use App\Http\Controllers\Api\v1\MessageController;
 use App\Http\Controllers\Api\v1\ElementsController;
+use App\Http\Controllers\Api\v1\ProductsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +43,7 @@ Route::prefix('api/v1')
         Route::resource('/postbacks', 'PostbackController');
         Route::resource('/messages', 'MessageController');
         Route::resource('/elements', 'ElementsController');
+        Route::resource('/products', 'ProductsController');
     });
 
 

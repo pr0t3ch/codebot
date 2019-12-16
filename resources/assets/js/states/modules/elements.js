@@ -1,6 +1,6 @@
 export default {
     state: {
-        listElementss: {data:[]},
+        listElements: {data:[]},
         Elements: {}
     },
     mutations: {

@@ -13,7 +13,7 @@
                 </a>
             </div>
         </div>
-        <div class="card red">
+        <div class="card red" v-if="elements.data.length === 0">
             <div class="card-content white-text">Nenhum botao</div>
         </div>
 
@@ -45,7 +45,6 @@
                     placeholder="Qual o destino"
                     v-model="dataToSave.postback"
                     required
-                    maxlength="20"
                 />
                 <label class="active" for="title">Destino</label>
             </div>
