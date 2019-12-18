@@ -30,7 +30,7 @@ class MessageBuilderRepository
             if ($element->webview_height_ratio) {
                 $config['webview_height_ratio'] = $elements->webview_height_ratio;
             }
-            $elements[] = new Button($element->type, $element->title);
+            $elements[] = new Button($element->type, $element->title, $element->postback, $config);
         }
 
         $bot->template($message->type, $message->message, $elements);
