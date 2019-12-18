@@ -31,7 +31,6 @@
             >editar</a>
             <a class="btn red waves-effect" @click.prevent="remove()" href>remover</a>
         </p>
-        {{ }}
         <message
             v-bind:key="message.id"
             v-for="message in postback.messages"
@@ -54,6 +53,8 @@
                             </optgroup>
                             <optgroup label="Templates">
                                 <option value="buttons">Botões</option>
+                                <option value="generic">Slider</option>
+                                <option value="list">Lista de produtos</option>
                             </optgroup>
                         </select>
                     </div>

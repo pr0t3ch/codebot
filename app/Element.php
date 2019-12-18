@@ -13,4 +13,14 @@ class Element extends Model
         'message_id',
         'webview_height_ratio',
     ];
+
+    public function elements()
+    {
+        return $this->hasMany('App\Element');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Product');
+    }
 }
