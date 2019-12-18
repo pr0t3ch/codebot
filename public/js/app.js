@@ -52473,7 +52473,7 @@ module.exports = Component.exports
     },
     actions: {
         getElements: function getElements(context, message_id) {
-            return window.axios.get('api/v1/elements?where[message_id=' + message_id + ']').then(function (response) {
+            return window.axios.get('api/v1/elements?where[message_id]=' + message_id).then(function (response) {
                 context.commit('updatePostbackList', response.data);
                 return response;
             });

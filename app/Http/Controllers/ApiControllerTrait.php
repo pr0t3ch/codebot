@@ -20,8 +20,23 @@ trait ApiControllerTrait
         $order[0] = $order[0] ?? 'id';
         $order[1] = $order[1] ?? 'asc';
 
+        $where = $data['where'] ?? [];
+        $like = $data['like'] ?? null;
+
+        if ($like) {
+            $like = explode(',', $like);
+            $like[1] = '%' . $like[1] . '%';
+        }
+
         $users = $this->model
             ->orderBy($order[0], $order[1])
+            ->where(function ($query) use ($like) {
+                if ($like) {
+                    return $query->where($like[0], 'like', $like[1]);
+                }
+                return $query;
+            })
+            ->where($where)
             ->with($this->relationships())
             ->paginate($limit);
         return response()->json($users);
