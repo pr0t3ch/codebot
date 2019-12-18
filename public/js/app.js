@@ -2324,7 +2324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$store.dispatch('newElement', data).then(function () {
                 _this.dataToSave = { type: '' };
-                _this.$store.dispatch('getElements', _this.message_id).then(function (response) {
+                _this.$store.dispatch('getElements', _this.message.id).then(function (response) {
                     _this.elements = response.data;
                 });
             });

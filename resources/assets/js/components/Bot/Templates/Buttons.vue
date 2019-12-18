@@ -95,7 +95,7 @@ export default {
 
             this.$store.dispatch('newElement', data).then(() => {
                 this.dataToSave = {type: ''};
-                this.$store.dispatch('getElements', this.message_id)
+                this.$store.dispatch('getElements', this.message.id)
                 .then(response => {
                     this.elements = response.data
                 })
