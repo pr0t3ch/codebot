@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\BotResources\SendSuggestions;
 use CodeBot\SenderRequest;
 use CodeBot\WebHook;
 use Illuminate\Http\Request;
 use CodeBot\Build\Solid;
 use App\Postback;
 use App\Repositories\MessageBuilderRepository;
+use CodeBot\Recources\Resolver;
 
 class BotController extends Controller
 {
@@ -32,7 +34,25 @@ class BotController extends Controller
         Solid::pageAccessToken(config('botfb.pageAccessToken'));
         Solid::setSender($senderId);
 
+        if ($postback === 'suggestion') {
+            (new SendSuggestions)->statusStart($sender, $bot);
+            return '';
+        }
+
         $postback = Postback::where('value', $postback)->first();
+
+        if (!$postback) {
+            $botResourcesResolver = new Resolver;
+            $botResourcesResolver->register(SendSuggestions::class);
+
+            if ($botResourcesResolver->resolver($sender, $bot)) {
+                return '';
+            }
+
+            $bot->message('text', 'Desculpe, não entendi');
+            $bot->message('text', 'Use o menu ao lado.');
+            return '';
+        }
 
         foreach ($postback->messages as $message) {
             (new MessageBuilderRepository)->createMessage($bot, $message);

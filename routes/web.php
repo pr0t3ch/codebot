@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\v1\PostbackController;
 use App\Http\Controllers\Api\v1\MessageController;
 use App\Http\Controllers\Api\v1\ElementsController;
 use App\Http\Controllers\Api\v1\ProductsController;
+use App\Http\Controllers\Api\v1\SuggestionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -48,6 +49,8 @@ Route::prefix('api/v1')
         Route::post('/messages/{id}/product', 'MessageController@product');
         Route::delete('/messages/{id}/product/{productId}', 'MessageController@deleteProduct');
         Route::get('/messages/{id}/product', 'MessageController@getProduct');
+
+        Route::resource('/suggestions', 'SuggestionController');
     });
 
 
