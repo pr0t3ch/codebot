@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\PostbackController;
 use App\Http\Controllers\Api\v1\MessageController;
 use App\Http\Controllers\Api\v1\ElementsController;
+use App\Http\Controllers\Api\v1\MenuButtonsController;
+use App\Http\Controllers\Api\v1\MenuController;
 use App\Http\Controllers\Api\v1\ProductsController;
 use App\Http\Controllers\Api\v1\SuggestionController;
 
@@ -39,6 +41,12 @@ Route::prefix('api/v1')
     ->middleware('auth')
     ->namespace('Api\v1')
     ->group(function () {
+
+        Route::resource('menus', 'MenuController');
+        Route::get('/menu/set-menu/{menu_id}', 'MenuController@setMenu');
+        Route::get('/menu/remove-menu', 'MenuController@removeMenu');
+        Route::resource('menu-buttons', 'MenuButtonsController');
+
         Route::post('/postbacks/started-button/{id}', 'PostbackController@setGetStarted');
         Route::delete('/postbacks/started-button', 'PostbackController@removeGetStartedButton');
         Route::resource('/postbacks', 'PostbackController');
