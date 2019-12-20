@@ -26,7 +26,7 @@ class SendSuggestions implements ResourceInterface
 
     public function statusStart(\CodeBot\SenderRequest $sender, \CodeBot\Bot $bot)
     {
-        (new SuggestionsRepository)->statusStop($sender->getSenderId());
+        (new SuggestionsRepository)->statusStart($sender->getSenderId());
 
         $bot->message('text', 'Ok, qual a sua sugestão?');
         $bot->message('text', 'Envie todas as sugestões de uma vez só.');
