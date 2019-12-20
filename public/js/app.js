@@ -2452,6 +2452,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert__ = __webpack_require__("./node_modules/sweetalert/dist/sweetalert.min.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert__);
 //
 //
 //
@@ -2462,6 +2464,115 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      locale: "default",
+      composer_input_disabled: true
+    };
+  },
+  computed: {
+    menus: function menus() {
+      return this.$store.state.menu.listMenus;
+    }
+  },
+  mounted: function mounted() {
+    this.$store.dispatch("getMenus");
+  },
+
+  methods: {
+    save: function save() {
+      var _this = this;
+
+      var data = {
+        locale: this.locale,
+        composer_input_disabled: this.composer_input_disabled
+      };
+
+      this.$store.dispatch("newMenu", data).then(function () {
+        _this.$store.dispatch("getMenus");
+        _this.locale = "default";
+        _this.composer_input_disabled = true;
+      });
+    },
+    removeMenu: function removeMenu() {
+      var item = this;
+      __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
+        title: "Removendo os menus no facebook",
+        text: "Você está removendo os menus",
+        icon: "warning",
+        dangerMode: true,
+        buttons: true
+      }).then(function (isConfirm) {
+        if (isConfirm) {
+          item.removeItens();
+        }
+      });
+    },
+    removeItens: function removeItens() {
+      var _this2 = this;
+
+      this.$store.dispatch("removeFromFacebook").then(function () {
+        __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()("Removido", "Removido com sucesso", "success");
+        _this2.$store.dispatch("getMenus");
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Menus/MenuView.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
@@ -2506,30 +2617,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            locale: 'default',
-            composer_input_disabled: true
-        };
-    },
-    computed: {
-        menus: function menus() {
-            return this.$store.state.menu.listMenus;
-        }
-    },
-    mounted: function mounted() {
-        this.$store.dispatch('getMenus');
-    },
-
-    methods: {
-        save: function save() {
-            var data = {
-                locale: this.locale,
-                composer_input_disabled: this.composer_input_disabled
-            };
-        }
+  computed: {
+    menu: function menu() {
+      var menu = this.$store.state.menu.menu;
+      return menu.menu_buttons ? menu : { menu_buttons: [] };
     }
-
+  },
+  mounted: function mounted() {
+    this.$store.dispatch("getMenu", this.$route.params.id);
+  }
 });
 
 /***/ }),
@@ -34470,18 +34566,18 @@ var render = function() {
     _vm.menus.data.length > 0
       ? _c(
           "div",
+          { staticClass: "row" },
           _vm._l(_vm.menus.data, function(menu) {
             return _c(
               "router-link",
               {
                 key: menu.id,
-                staticClass: "waves-effect waves-light btn-large light-green",
+                staticClass:
+                  "card waves-effect waves-light btn-large light-green",
                 attrs: { to: { path: "menu/" + menu.id } }
               },
               [
-                _vm._v(
-                  "\n            " + _vm._s(menu.locale) + "\n            "
-                ),
+                _vm._v("\n      " + _vm._s(menu.locale) + "\n      "),
                 _c("small", [
                   _vm._v(
                     "Campo de mensagem: " +
@@ -34496,6 +34592,8 @@ var render = function() {
           1
         )
       : _vm._e(),
+    _vm._v(" "),
+    _c("hr"),
     _vm._v(" "),
     _c(
       "form",
@@ -35085,6 +35183,147 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-5982f46b", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6afdabf6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Menus/MenuView.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("h3", [_vm._v("menu: " + _vm._s(_vm.menu.locale))]),
+    _vm._v(" "),
+    _c(
+      "p",
+      [
+        _c(
+          "router-link",
+          { staticClass: "btn", attrs: { to: { path: "/menus" } } },
+          [_vm._v("voltar")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn green",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.sentToFacebook()
+              }
+            }
+          },
+          [_vm._v("sicronizar")]
+        ),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            staticClass: "btn red",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.remove()
+              }
+            }
+          },
+          [_vm._v("remover")]
+        )
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _vm.menu.menu_buttons.length > 0
+      ? _c(
+          "div",
+          { staticClass: "card red" },
+          [
+            _vm._l(_vm.menu.menu_buttons, function(menu_buttons) {
+              return menu_buttons.parent_id === 0
+                ? _c("div", { key: menu_buttons.id }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "waves-effect waves-light btn-large grey"
+                      },
+                      [
+                        _vm._v(
+                          "\n        " +
+                            _vm._s(menu_buttons.title) +
+                            "\n        "
+                        ),
+                        _c("small", [
+                          _vm._v(
+                            _vm._s(_vm._f("menus_types")(menu_buttons.type)) +
+                              " " +
+                              _vm._s(menu_buttons.value)
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "waves-effect waves-light child grey" },
+              _vm._l(_vm.menu.menu_buttons, function(child_menu_buttons) {
+                return child_menu_buttons.parent_id === _vm.menu_buttons.id
+                  ? _c("div", { key: child_menu_buttons.id }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "waves-effect waves-light btn-large grey"
+                        },
+                        [
+                          _vm._v(
+                            "\n          " +
+                              _vm._s(child_menu_buttons.title) +
+                              "\n          "
+                          ),
+                          _c("small", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("menus_types")(child_menu_buttons.type)
+                              ) +
+                                " " +
+                                _vm._s(child_menu_buttons.value)
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  : _vm._e()
+              }),
+              0
+            )
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.menu.menu_buttons.length === 0
+      ? _c("div", { staticClass: "card red" }, [
+          _c("div", { staticClass: "card-content white-text" }, [
+            _vm._v("Nenhum botao")
+          ])
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6afdabf6", module.exports)
   }
 }
 
@@ -52193,6 +52432,8 @@ module.exports = function(module) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Suggestions_SuggestionList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_Suggestions_SuggestionList__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Menus_Menu__ = __webpack_require__("./resources/assets/js/components/Menus/Menu.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Menus_Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_Menus_Menu__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_Menus_MenuView__ = __webpack_require__("./resources/assets/js/components/Menus/MenuView.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_Menus_MenuView___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_Menus_MenuView__);
 
 
 
@@ -52203,7 +52444,8 @@ module.exports = function(module) {
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = ([{ path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Auth_Login_vue___default.a, meta: { requiresAuth: false } }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_3__components_Auth_Register_vue___default.a, meta: { requiresAuth: false } }, { path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_Bot_Postback_vue___default.a, meta: { requiresAuth: true } }, { path: '/postback/:id', component: __WEBPACK_IMPORTED_MODULE_1__components_Bot_PostbackView_vue___default.a, meta: { requiresAuth: true } }, { path: '/products', component: __WEBPACK_IMPORTED_MODULE_4__components_Products_ProductsList___default.a, meta: { requiresAuth: true } }, { path: '/product/:id/remove', component: __WEBPACK_IMPORTED_MODULE_5__components_Products_ProductRemove___default.a, meta: { requiresAuth: true } }, { path: '/product/:id/edit', component: __WEBPACK_IMPORTED_MODULE_6__components_Products_ProductEdit___default.a, meta: { requiresAuth: true } }, { path: '/menus', component: __WEBPACK_IMPORTED_MODULE_8__components_Menus_Menu___default.a, meta: { requiresAuth: true } }, { path: '/suggestions/', component: __WEBPACK_IMPORTED_MODULE_7__components_Suggestions_SuggestionList___default.a, meta: { requiresAuth: true } }]);
+
+/* harmony default export */ __webpack_exports__["a"] = ([{ path: '/login', component: __WEBPACK_IMPORTED_MODULE_2__components_Auth_Login_vue___default.a, meta: { requiresAuth: false } }, { path: '/register', component: __WEBPACK_IMPORTED_MODULE_3__components_Auth_Register_vue___default.a, meta: { requiresAuth: false } }, { path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_Bot_Postback_vue___default.a, meta: { requiresAuth: true } }, { path: '/postback/:id', component: __WEBPACK_IMPORTED_MODULE_1__components_Bot_PostbackView_vue___default.a, meta: { requiresAuth: true } }, { path: '/products', component: __WEBPACK_IMPORTED_MODULE_4__components_Products_ProductsList___default.a, meta: { requiresAuth: true } }, { path: '/product/:id/remove', component: __WEBPACK_IMPORTED_MODULE_5__components_Products_ProductRemove___default.a, meta: { requiresAuth: true } }, { path: '/product/:id/edit', component: __WEBPACK_IMPORTED_MODULE_6__components_Products_ProductEdit___default.a, meta: { requiresAuth: true } }, { path: '/menus', component: __WEBPACK_IMPORTED_MODULE_8__components_Menus_Menu___default.a, meta: { requiresAuth: true } }, { path: '/menu/:id', component: __WEBPACK_IMPORTED_MODULE_9__components_Menus_MenuView___default.a, meta: { requiresAuth: true } }, { path: '/suggestions/', component: __WEBPACK_IMPORTED_MODULE_7__components_Suggestions_SuggestionList___default.a, meta: { requiresAuth: true } }]);
 
 /***/ }),
 
@@ -52711,6 +52953,54 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/Menus/MenuView.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/Menus/MenuView.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-6afdabf6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/Menus/MenuView.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Menus/MenuView.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6afdabf6", Component.options)
+  } else {
+    hotAPI.reload("data-v-6afdabf6", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/Products/ProductEdit.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -52980,7 +53270,7 @@ module.exports = Component.exports
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: {
         listMenus: { data: [] },
-        Menu: {}
+        menu: {}
     },
     mutations: {
         updateMenuList: function updateMenuList(state, data) {

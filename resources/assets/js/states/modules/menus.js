@@ -1,7 +1,7 @@
 export default {
     state: {
-        listMenus: {data:[]},
-        Menu: {}
+        listMenus: { data: [] },
+        menu: {}
     },
     mutations: {
         updateMenuList(state, data) {
@@ -14,15 +14,15 @@ export default {
     actions: {
         getMenus(context) {
             return window.axios.get('api/v1/menus')
-            .then(response => {
-                context.commit('updateMenuList', response.data)
-            })
+                .then(response => {
+                    context.commit('updateMenuList', response.data)
+                })
         },
         getMenu(context, id) {
             return window.axios.get(`api/v1/menus/${id}`)
-            .then(response => {
-                context.commit('updateMenu', response.data)
-            })
+                .then(response => {
+                    context.commit('updateMenu', response.data)
+                })
         },
         newMenu(context, data) {
             return window.axios.post('api/v1/menus', data)
