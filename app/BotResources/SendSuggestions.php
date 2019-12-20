@@ -13,7 +13,7 @@ class SendSuggestions implements ResourceInterface
         $suggestion = new SuggestionsRepository;
 
         if ($suggestion->statusCheck($sender->getSenderId()) === 'started') {
-            $suggestion->createSuggestion($sender->getSenderId(), $sender->getMessage());
+            $suggestion->create($sender->getSenderId(), $sender->getMessage());
 
             $bot->message('text', 'Obrigado pela sugestão');
             $suggestion->statusStop($sender->getSenderId());

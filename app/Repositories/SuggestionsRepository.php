@@ -14,15 +14,15 @@ class SuggestionsRepository
 
     public function statusCheck($senderId)
     {
-        Redis::get('suggestion::start::' . $senderId, 'started');
+        return Redis::get('suggestion::start::' . $senderId);
     }
 
     public function statusStop($senderId)
     {
-        Redis::del('suggestion::start::' . $senderId, 'started');
+        Redis::del('suggestion::start::' . $senderId);
     }
 
-    public function createSuggestion($senderId, $message)
+    public function create($senderId, $message)
     {
         Suggestions::create([
             'user_face_id' => $senderId,
