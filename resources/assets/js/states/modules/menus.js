@@ -33,5 +33,11 @@ export default {
         removeMenu(context, id) {
             return window.axios.delete(`api/v1/menus/${id}`)
         },
+        sendToFacebook(context, id) {
+            return window.axios.get(`api/v1/menu/set-menu/${id}`)
+        },
+        removeFromFacebook(context) {
+            return window.axios.get(`api/v1/menu/remove-menu`)
+        },
     }
 }

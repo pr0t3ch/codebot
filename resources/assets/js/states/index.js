@@ -3,6 +3,7 @@ import messages from './modules/messages';
 import elements from './modules/elements';
 import products from './modules/products';
 import menus from './modules/menus';
+import menuButtons from './modules/menuButtons';
 
 export default {
     modules: {
@@ -10,6 +11,7 @@ export default {
         messages: messages,
         elements: elements,
         product: products,
-        menu: menus
+        menu: menus,
+        menuButton: menuButtons
     }
 }

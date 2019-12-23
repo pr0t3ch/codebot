@@ -14,19 +14,6 @@
 </head>
 
 <body class="blue-grey lighten-5">
-
-    <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="assets/img/leaf_background.jpg">
-                </div>
-                <a><img class="circle" src="https://secure.gravatar.com/avatar/3fca4c87d0ca7200272c7c97d0f69d75" alt=""></a>
-                <a><span class="white-text name">Daniel Dauber</span></a>
-                <a href="https://github.com/danieldauber/"><span class="white-text email">@danieldauber</span></a>
-            </div>
-        </li>
-    </ul>
     
     <nav id="main-nav">
         <div class="nav-wrapper container-fluid grey darken-4">
@@ -44,16 +31,26 @@
         </div>
     </nav>
     
-    <div id="app"></div>
+    <div id="app">
+        <div class="preloader-container">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+  </div>
+
+
+
+    </div>
     
     <script src="{{mix('/js/app.js')}}"></script>
-    <script src="{{mix('/js/jquery-3.4.1.js')}}"></script>
-    <script src="{{mix('/js/materialize.js')}}"></script>
-    <script>
-        $(document).ready(function(){
-            $('.sidenav').sidenav();
-        });
-    </script>
 </body>
 
 </html>

@@ -25,19 +25,13 @@ export default {
             })
         },
         newMenuButton(context, data) {
-            return window.axios.post('api/v1/menu-button', data)
+            return window.axios.post('api/v1/menu-buttons', data)
         },
         updateMenuButton(context, data) {
             return window.axios.put(`api/v1/menu-button/${data.id}`, data.data)
         },
         removeMenuButton(context, id) {
-            return window.axios.delete(`api/v1/menu-button/${id}`)
-        },
-        sentToFacebook(context, id) {
-            return window.axios.get(`api/v1/set-menu/${id}`)
-        },
-        removeFromFacebook(context) {
-            return window.axios.get(`api/v1/remove-menu`)
+            return window.axios.delete(`api/v1/menu-buttons/${id}`)
         },
     }
 }
